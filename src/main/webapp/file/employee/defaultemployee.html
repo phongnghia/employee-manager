@@ -1,0 +1,23 @@
+<div class="default__header row m-0">
+	<div class="default__header__name col-sm-3 py-2">
+		<h4 class="font-weight-bolder text-nowrap text-uppercase">{{nameDefault}}</h4>
+	</div>
+	<div class="default__header__search col-sm-6 py-2">
+		<input type="text" placeholder="search employee" ng-model="search.$">
+		<a class="icon__search" href="#"><i class="fas fa-search"></i></a>
+	</div>
+	<div class="default__header__icon col-sm-3 py-2">
+		<a class="trash__default" href="#"
+			ng-click="deleteEmployee(selectCheck)""><i
+			class="fas fa-trash-alt"></i></a>
+
+		<button class="plus__default" ng-hide="hideShow"
+			ng-click="changeViewEmployee('file/employee/addemployee.html')">
+			<a ng-click="createEmployee()"><i class="fa fa-plus-circle"></i></a>
+		</button>
+		<a class="back__default" ng-show="hideShow" href="#!"> <i
+			class="fas fa-undo-alt"></i>
+		</a>
+	</div>
+</div>
+<div class="default__body py-4" ng-include="viewEmployee"></div>

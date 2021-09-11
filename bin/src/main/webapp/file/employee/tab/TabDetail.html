@@ -1,0 +1,59 @@
+<table class="employee-detail__tab--detail">
+	<tbody>
+		<tr>
+			<td><label>Name</label></td>
+			<td class="employee-detail__tab--detail--display"><input
+				ng-model="eachUser.name"></td>
+		</tr>
+		<tr>
+			<td><label>NickName</label></td>
+			<td class="employee-detail__tab--detail--display"><input
+				ng-model="eachUser.nickName"></td>
+		</tr>
+		<tr>
+			<td><label>Age</label></td>
+			<td class="employee-detail__tab--detail--display"><input
+				ng-model="eachUser.age"></td>
+		</tr>
+		<tr>
+			<td><label>Sex</label></td>
+			<td class="employee-detail__tab--detail--display"><select
+				ng-model="eachUser.sex">
+					<option ng-repeat="sexEmployee in displaySex"
+						ng-value="{{sexEmployee.id}}" ng-bind="sexEmployee.name"></option>
+			</select></td>
+		</tr>
+		<tr>
+			<td><label>Role</label></td>
+			<td class="employee-detail__tab--detail--display"><select
+				ng-model="eachUser.idRole">
+					<option ng-repeat="role in roles" ng-value="{{role.id}}"
+						ng-bind="role.name"></option>
+			</select></td>
+		</tr>
+		<tr>
+			<td><label>Email</label></td>
+			<td class="employee-detail__tab--detail--display"><input
+				ng-model="eachUser.email"></td>
+		</tr>
+		<tr>
+			<td><label>Is active</label></td>
+			<td class="employee-detail__tab--detail--display"><input
+				class="detail--active" type="checkbox" ng-model="eachUser.status"
+				ng-true-value="1" ng-false-value="0" checked="checked">
+		</tr>
+		<tr>
+			<td><label>Day start</label></td>
+			<td class="employee-detail__tab--detail--display"><md-datepicker
+					id="timePicker" ng-model="eachUser.dayStart"></md-datepicker></td>
+		</tr>
+		<tr>
+			<td><label>Team</label></td>
+			<td class="employee-detail__tab--detail--display"><select
+				ng-model="eachUser.idTeam">
+					<option ng-repeat="team in selectTeam" ng-value="{{team.id}}"
+						ng-bind="team.name"></option>
+			</select></td>
+		</tr>
+	</tbody>
+</table>

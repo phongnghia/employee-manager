@@ -1,0 +1,19 @@
+.infor__table {
+	width: 100%;
+}
+
+.infer__thead {
+	background: aquamarine;
+	clear: none;
+}
+
+.infer__tr {
+	background: #809eb3;
+	color: aliceblue;
+	font-weight: 100;
+}
+
+.infer__th {
+	font-weight: 100;
+	border: 1px solid white;
+}

@@ -1,0 +1,266 @@
+.main__app {
+	font-family: 'poppins', sans-serif;
+}
+
+table tbody .childTeam {
+	cursor: pointer;
+	color: #2e3c48d1;
+	font-size: 14px;
+}
+
+table tbody .childTeam:hover {
+	background: #c6d1ef26;
+}
+
+table tbody .childTeam:focus {
+	outline: none
+}
+
+.listteam__header {
+	position: relative;
+	width: 100%;
+	height: 5rem;
+}
+
+.listteam__header__icon {
+	left: 89%;
+	position: absolute;
+	display: flex;
+	top: 91%;
+	/* margin-right: 0rem; */
+}
+
+.listteam__header__icon button {
+	border: none;
+	color: #ff0000;
+	background: none;
+	padding: 6px 12px;
+	border-radius: 6px;
+	margin-right: 10px;
+}
+
+.listteam__header__icon button:hover {
+	background: white;
+	color: #5d5757;
+}
+
+.listteam__header__icon button:focus {
+	outline: none;
+}
+
+.listteam__header__icon a {
+	/* text-decoration: none; */
+	/* display: block; */
+	padding: 6px 11px;
+	background: none;
+	border-radius: 6px;
+}
+
+.listteam__header__icon a:nth-child(1) {
+	color: red;
+}
+
+.listteam__header__icon a:nth-child(2) {
+	color: rgb(63, 81, 181);
+}
+
+.listteam__header__search {
+	position: absolute;
+	top: 0%;
+	left: 58%;
+	width: 47%;
+}
+
+.listteam__header__search input {
+	width: 46%;
+	padding: 10px;
+	border: 1px solid #a2909094;
+	font-size: 12px;
+	border-radius: 9px;
+	margin-left: 11rem;
+	position: relative;
+	margin-top: 12px;
+}
+
+.listteam__header__search input:focus {
+	outline: none;
+}
+
+.listteam__khung {
+	width: 20rem;
+	height: 20rem;
+}
+
+.listteam__khung__img {
+	height: 10rem;
+	width: 10rem;
+}
+
+.listteam__khung__name {
+	text-align: center;
+	line-height: 35px;
+}
+
+.listteam__body .col-sm-4 {
+	height: fit-content;
+}
+
+.btn__edit__team {
+	border: none;
+	color: #4e73df;
+	background: none;
+}
+
+.btn__edit__team:focus {
+	outline: none;
+}
+
+@media ( min-width : 910px) {
+	.form__editteam-body {
+		width: 45%;
+	}
+}
+
+@media ( max-width : 910px) {
+	/* Team */
+	.form__editteam-body {
+		width: 100%;
+	}
+}
+
+.plus__default {
+	color: #21ab18;
+	cursor: pointer;
+}
+
+.plus__default:hover {
+	color: #21ab18;
+}
+
+.trash__default {
+	color: red;
+}
+
+.trash__default:hover {
+	color: red;
+}
+
+.back__default {
+	color: rgb(63, 81, 181);
+}
+
+.back__default:hover {
+	color: rgb(63, 81, 181);
+}
+
+.edit__default {
+	color: #3f51b5;
+}
+
+/* ==============editteam=============== */
+.form__editteam {
+	min-height: 80vh;
+}
+
+.form__editteam-title {
+	text-align: center;
+	padding-top: 1rem;
+	color: #008fd8;
+}
+
+.form__editteam-body {
+	display: block;
+	height: 5rem;
+}
+
+.form__editteam-body-input {
+	position: relative;
+	height: inherit;
+}
+
+.form__editteam-body-input i {
+	position: absolute;
+	top: 10%;
+	right: 2%;
+	font-size: 30px;
+	color: #4e73df;
+}
+
+.form__editteam-body-input input {
+	width: 100%;
+	padding: 8px;
+	border-radius: 5px;
+	border: 1px solid #8e696952;
+}
+
+.form__editteam-body-input input:focus {
+	border: 1px solid red;
+}
+
+.form__editteam-submit {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.form__editteam-submit a {
+	background: #e07a31;
+	width: 10rem;
+	border: none;
+	height: 3.4rem;
+	margin-left: 3rem;
+}
+/* ====================/edittem ========*/
+.infer__th {
+	text-align: center;
+}
+
+/* ====================infor ========*/
+
+/* ====================/infor=========*/
+.teamupdate__body.ng-scope {
+	min-height: 80vh;
+}
+
+.teamupdate__form {
+	padding: 1em 4em;
+}
+
+.teamupdate__form-firstname {
+	height: 6rem;
+}
+
+.teamupdate__form-firstname label {
+	color: #333333;
+	padding-top: 4px;
+	padding-left: 1px;
+	display: block;
+	font-size: 14px;
+}
+
+.teamupdate__form-firstname input {
+	width: 50%;
+	border: 1px solid #33333352;
+	padding: 6px;
+	border-radius: 3px;
+}
+
+.teamupdate__form-listmanager select {
+	width: 50%;
+	border: 1px solid #33333352;
+	padding: 6px;
+	border-radius: 3px;
+}
+
+.teamupdate__form-listusers {
+	
+}
+
+.teamupdate__form-listusers-checked {
+	
+}
+
+pagination {
+	position: fixed;
+	bottom: 10%;
+}

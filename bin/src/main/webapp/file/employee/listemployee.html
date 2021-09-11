@@ -1,0 +1,82 @@
+
+<div>
+	<div class="wrap__table">
+		<table class="table__default">
+			<thead>
+				<tr class="table__default__tr">
+					<td class="table__default__checkAll"><md-checkbox
+							aria-label="Select All" ng-checked="isChecked()"
+							md-indeterminate="isIndeterminate()" ng-click="toggleAll()">
+						<span ng-if="isChecked()"></span></md-checkbox></td>
+					<td class="table__default__name">
+						<p href="#"
+							ng-click="sortType = 'name'; sortReverse = !sortReverse">
+							Name Employee <span ng-show="sortType == 'name' && !sortReverse"
+								class="fa fa-caret-down"></span> <span
+								ng-show="sortType == 'name' && sortReverse"
+								class="fa fa-caret-up"></span>
+						</p>
+					</td>
+					<td class="table__default__age">
+						<p href="#"
+							ng-click="sortType = 'age'; sortReverse = !sortReverse">
+							Age <span ng-show="sortType == 'age' && !sortReverse"
+								class="fa fa-caret-down"></span> <span
+								ng-show="sortType == 'age' && sortReverse"
+								class="fa fa-caret-up"></span>
+						</p>
+					</td>
+					<td class="table__default__nickname">
+						<p href="#"
+							ng-click="sortType = 'nickname'; sortReverse = !sortReverse">
+							NickName <span ng-show="sortType == 'nickname' && !sortReverse"
+								class="fa fa-caret-down"></span> <span
+								ng-show="sortType == 'nickname' && sortReverse"
+								class="fa fa-caret-up"></span>
+						</p>
+					</td>
+					<td class="table__default__role">
+						<p href="#"
+							ng-click="sortType = 'position'; sortReverse = !sortReverse">
+							Position <span ng-show="sortType == 'position' && !sortReverse"
+								class="fa fa-caret-down"></span> <span
+								ng-show="sortType == 'position' && sortReverse"
+								class="fa fa-caret-up"></span>
+						</p>
+					</td>
+					<td class="table__default__email">
+						<p href="#"
+							ng-click="sortType = 'email'; sortReverse = !sortReverse">
+							Email <span ng-show="sortType == 'email' && !sortReverse"
+								class="fa fa-caret-down"></span> <span
+								ng-show="sortType == 'email' && sortReverse"
+								class="fa fa-caret-up"></span>
+						</p>
+					</td>
+					<td class="table__default__bit sex"><p>Sex</p></td>
+					<td class="table__default__bit status"><p>Status</p></td>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="table__default__tr"
+					dir-paginate="x in employees| orderBy:sortType:sortReverse | filter:search|itemsPerPage:8">
+					<td><md-checkbox ng-click="toggle(x, selectCheck)"
+							ng-checked="exists(x, selectCheck)"> </md-checkbox></td>
+					<td><a ng-click="getEmployeeDetail(x)">{{ x.name }}</a></td>
+					<td>{{ x.age }}</td>
+					<td>{{ x.nickName}}</td>
+					<td>{{ x.roleName}}</td>
+					<td>{{ x.email}}</td>
+					<td><input type='checkbox' ng-checked="x.sex == 0" name=''
+						id='' value='' /></td>
+					<td><input type='checkbox' ng-checked="x.status == 1" name=''
+						id='' value='' /></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<dir-pagination-controls class="pagination__default" max-size="9"
+		direction-links="true" boundary-links="true">
+	</dir-pagination-controls>
+</div>

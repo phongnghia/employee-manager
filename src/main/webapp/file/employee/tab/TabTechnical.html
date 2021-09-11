@@ -1,0 +1,96 @@
+<div class="employee-detail__tab--technical pb-3">
+	<div class="row pb-4">
+		<form class="col-sm-7">
+			<input type="text" placeholder="Add new skill technical"
+				ng-model="TechnicalForm.skill"> <input type="text"
+				placeholder="Level" ng-model="TechnicalForm.level">
+		</form>
+		<div class="col-sm-5">
+			<md-button ng-click="submitTechnical()"
+				class="bg-success text-white fas fa-plus"></md-button>
+			<md-button ng-click="deleteListTechnical(selectCheckTechnical)"
+				class="bg-danger text-white far fa-trash-alt"></md-button>
+		</div>
+	</div>
+
+</div>
+<div>
+	<div class="wrap__table">
+		<table class="table__default">
+			<thead>
+				<tr class="table__default__detail">
+					<td class="table__default__click"><md-checkbox
+							ng-checked="isCheckedTechnical()"
+							md-indeterminate="isIndeterminateTechnical()"
+							ng-click="toggleAllTechnical()"> <span
+							ng-if="isCheckedTechnical()"></span></md-checkbox></td>
+					</td>
+					<td>
+						<p ng-click="sortType = 'name'; sortReverse = !sortReverse">
+							Skill <span ng-show="sortType == 'name' && !sortReverse"
+								class="fa fa-caret-down"></span> <span
+								ng-show="sortType == 'name' && sortReverse"
+								class="fa fa-caret-up"></span>
+						</p>
+					</td>
+					<td>
+						<p ng-click="sortType = 'ex'; sortReverse = !sortReverse">
+							Level <span ng-show="sortType == 'ex' && !sortReverse"
+								class="fa fa-caret-down"></span> <span
+								ng-show="sortType == 'ex' && sortReverse" class="fa fa-caret-up"></span>
+						</p>
+					</td>
+					<td class="table__default__click">
+						<p>Edit</p>
+					</td>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr class="table__default__detail"
+					ng-repeat="x in filteredTechnical | orderBy:sortType:sortReverse | filter:search">
+					<td><md-checkbox ng-click="toggle(x, selectCheckTechnical)"
+							ng-checked="exists(x, selectCheckTechnical)"> </md-checkbox></td>
+					<td>{{ x.skill }}</td>
+					<td>{{ x.level }}</td>
+					<td><md-button class="fas fa-edit"
+							ng-click="showAdvancedTechnical(x)"> </md-button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<pagination previous-text="&lsaquo;" next-text="&rsaquo;"
+		first-text="&laquo;" last-text="&raquo;"
+		ng-model="currentPageTech.page"
+		total-items="(todosTech.length/numPerPageTech)*10"
+		max-size="maxSizeTech" boundary-links="true"> </pagination>
+</div>
+<script type="text/ng-template" id="dialogEditTechnical.tmpl.html">
+		<md-dialog>
+			<form ng-cloak>
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<h2>Edit technical</h2>
+						<span flex></span>
+					</div>
+				</md-toolbar>
+	
+			<md-dialog-content>
+				<div class="md-dialog-content">
+					<input class="input__default__details" type="text" ng-model="dataValue.skill" />
+					<input class="input__default__details" type="text" ng-model="dataValue.level" />
+				</div>
+			</md-dialog-content>
+	
+			<md-dialog-actions layout="row">
+				<span flex></span>
+				<md-button ng-click="answerTech(editTechnical(dataValue))">
+				Save
+				</md-button>
+				<md-button ng-click="cancelTech()">
+				Cancel
+				</md-button>
+			</md-dialog-actions>
+			</form>
+		</md-dialog>
+</script>

@@ -1,0 +1,99 @@
+<form class="form-horizontal" id="add-form">
+	<div class="default__header row m-0">
+		<div class="default__header__name col-sm-3 py-2">
+			<h4 class="font-weight-bolder text-nowrap text-uppercase">{{nameDefault}}</h4>
+		</div>
+		<div class="default__header__search col-sm-6 py-2">
+			<input type="text" placeholder="search team" ng-model="search.$">
+			<a class="icon__search" href="#"><i class="fas fa-search"></i></a>
+		</div>
+		<div class="default__header__icon col-sm-3 py-2">
+
+			<button class="trash__default px-3" type="submit" ng-click="Delete()">
+				<i class="fas fa-trash-alt"></i>
+			</button>
+			<!-- <a class="plus__default" href="#!AddTeam"> <i
+				class="fas fa-plus-circle"></i>
+			</a> -->
+			<a class="plus__default" ng-click="addTeam()"> <i
+				class="fas fa-plus-circle"></i>
+			</a>
+
+		</div>
+	</div>
+	<div class="alert alert-success form__editteam-success"
+		ng-show="showMe">{{success}}</div>
+	<div class="wrap__table">
+		<table class="table__default my-4">
+			<thead>
+				<tr>
+					<td><input type="checkbox" ng-change="checkAll(checkedAll)"
+						ng-model="checkedAll" /></td>
+					<td ng-click="sortType = 'name'; sortReverse = !sortReverse">
+						Name team<span ng-show="sortType == 'name' && !sortReverse"></span>
+						<span ng-show="sortType == 'name' && sortReverse"></span>
+					</td>
+					<td ng-click="sortType = 'ex'; sortReverse = !sortReverse">
+						NameManager<span ng-show="sortType == 'ex' && !sortReverse"></span>
+					</td>
+					<td ng-click="sortType = 'position'; sortReverse = !sortReverse">
+						Number <span ng-show="sortType == 'position' && !sortReverse"></span>
+						<span ng-show="sortType == 'position' && sortReverse"></span>
+					</td>
+					<td>Edit</td>
+				</tr>
+			</thead>
+
+
+			<tbody>
+				<tr class="childTeam" ng-click="choseTeamEvent(x.name)"
+					ng-repeat="x in filteredTodos | orderBy:sortType:sortReverse | filter:search">
+					<td><input ng-change="checkItem(x.text.id, x.text.selected)"
+						type="checkbox" ng-model="x.text.selected" /></td>
+					<td ng-click="Information(x.text.id)">{{ x.text.name }}</td>
+					<td>{{ x.text.nameManager }}</td>
+					<td>{{ x.text.number}}</td>
+					<td><button ng-click="loadbyid(x.text.id)"
+							class="btn__edit__team">
+							<i class="fas fa-edit"></i>
+						</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</form>
+<div class="pagination__default">
+	<pagination previous-text="&lsaquo;" next-text="&rsaquo;"
+		first-text="&laquo;" last-text="&raquo;" ng-model="currentPage"
+		total-items="(todos.length/numPerPage)*10" max-size="maxSize"
+		boundary-links="true"> </pagination>
+</div>
+<script type="text/ng-template" id="dialogAddTeam.tmpl.html">
+		<md-dialog>
+			<form ng-cloak>
+				<md-toolbar>
+					<div class="md-toolbar-tools">
+						<h2>Add team</h2>
+						<span flex></span>
+					</div>
+				</md-toolbar>
+	
+			<md-dialog-content>
+				<div class="md-dialog-content">
+					<input class="input__default__details" type="text" class=""
+						ng-model="loadteams.name" required placeholder="Name team">
+				</div>
+			</md-dialog-content>
+	
+			<md-dialog-actions layout="row">
+				<span flex></span>
+				<md-button ng-click="answerTeam(addTeam())">
+				Save
+				</md-button>
+				<md-button ng-click="cancelTeam()">
+				Cancel
+				</md-button>
+			</md-dialog-actions>
+			</form>
+		</md-dialog>
+</script>
