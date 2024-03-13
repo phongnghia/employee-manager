@@ -111,6 +111,22 @@
 		</div>
 	</div>
 
+	<script type="text/ng-template" id="dialogPermission.tmpl.html">
+    	<md-dialog>
+    		<md-dialog-content>
+    			<div class="md-dialog-content">
+    				<h4>You don't have permission to perform!</h4>
+    				<span flex></span>
+    			</div>
+    		</md-dialog-content>
+
+    		<md-dialog-actions layout="row">
+    			<md-button ng-click="cancelPermission()">
+    				Close
+    			</md-button>
+    		</md-dialog-actions>
+    	</md-dialog>
+    </script>
 	<!-- Bootstrap 4 -->
 	<script
 		src='<c:url value = "/template/static/libs/jquery-3.5.1.slim.min.js"/>'></script>

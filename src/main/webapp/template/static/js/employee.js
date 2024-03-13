@@ -9,17 +9,17 @@ angular.module('myApp').config(function($routeProvider) {
 		templateUrl: 'file/employee/detailsemployee.html',
 		controller: 'detailEmployeeCtrl'
 	});
-}).controller('employeeCtrl', function($scope, $http) {
+}).controller('employeeCtrl', function($scope, $http, $mdDialog) {
 	$scope.sortType = 'name';
 	$scope.nameDefault = "Employee";
 	$scope.sortReverse = false;
 	$scope.viewEmployee = "file/employee/listemployee.html";
 	/*$scope.checkPosition = checkAllScope;*/
-	$scope.changeViewEmployee = changeViewEventEmployee;
 	$scope.choseEventEmployee = choseTeamEmployee;
 	$scope.employees;
 	$scope.positiones;
 	$scope.teames;
+	$scope.authorize = JSON.parse(localStorage.user)
 
 	//Now load the data from server
 	_refreshEmployeeData(0);
@@ -80,45 +80,66 @@ angular.module('myApp').config(function($routeProvider) {
 	};
 
 	$scope.createEmployee = function() {
-		_clearFormData();
+        if ($scope.authorize.roleName != "ADMIN") {
+            _loadDiaLogPermission();
+        } else {
+            $scope.changeViewEmployee = changeViewEventEmployee;
+            _clearFormData();
+        }
 	}
 
 
 	//Method Delete
 	$scope.deleteEmployee = function(selectCheck) {
-		let arr = [];
-		for (let i of selectCheck) {
-			arr.push(i.id);
-		}
-		$http({
-			method: 'DELETE',
-			url: '/EmployeeManager/api/user/' + arr,
-		}).then(function(response) {
-			_refreshEmployeeData(0);
-			arr = [];
-		}, function(response) {
-			console.log(response + selectCheck);
-		});
-
+	    if ($scope.authorize.roleName != "ADMIN") {
+            _loadDiaLogPermission();
+        } else {
+            let arr = [];
+            for (let i of selectCheck) {
+                arr.push(i.id);
+            }
+            $http({
+                method: 'DELETE',
+                url: '/EmployeeManager/api/user/' + arr,
+            }).then(function(response) {
+                _refreshEmployeeData(0);
+                arr = [];
+            }, function(response) {
+                console.log(response + selectCheck);
+            });
+        }
 	};
-
-
-	//////////
-
 
 	// In case of edit
 	$scope.editEmployee = function(employeess) {
-		$scope.employeeForm.name = employeess.name;
-		$scope.employeeForm.age = employeess.age;
-		$scope.employeeForm.nickname = employeess.nickname;
-		$scope.employeeForm.position = employeess.position;
-		$scope.employeeForm.email = employeess.email;
-		$scope.employeeForm.password = employeess.password;
-		$scope.employeeFrom.status = employeess.status;
-		$scope.employeeFrom.sex = employeess.sex;
-		$scope.employeeForm.team = employeess.team;
+	    if ($scope.authorize.roleName != "ADMIN") {
+            _loadDiaLogPermission();
+        } else {
+            $scope.employeeForm.name = employeess.name;
+            $scope.employeeForm.age = employeess.age;
+            $scope.employeeForm.nickname = employeess.nickname;
+            $scope.employeeForm.position = employeess.position;
+            $scope.employeeForm.email = employeess.email;
+            $scope.employeeForm.password = employeess.password;
+            $scope.employeeFrom.status = employeess.status;
+            $scope.employeeFrom.sex = employeess.sex;
+            $scope.employeeForm.team = employeess.team;
+        }
 	};
 
+    function _loadDiaLogPermission(){
+        $mdDialog.show({
+        	templateUrl: 'dialogPermission.tmpl.html',
+        	parent: angular.element(document.body),
+        	clickOutsideToClose: true,
+        	fullscreen: $scope.customFullscreen,
+        	controller: function($scope, $mdDialog) {
+        		$scope.cancelPermission = function() {
+        			$mdDialog.cancel();
+        		};
+        	}
+        });
+    }
 
 	// method GET data with API Technical
 	function _refreshEmployeeData(id) {
