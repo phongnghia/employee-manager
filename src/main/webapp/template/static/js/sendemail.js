@@ -7,7 +7,7 @@ angular.module('changeApp', []).controller('changeCtrl', function($scope, $http)
 	$scope.error = true;
 	$scope.alert;
 	$scope.loadIndex = function(){
-		location.href = "http://localhost:8080/EmployeeManager/login";
+		location.href = "http://103.188.82.90/EmployeeManager/login";
 	}
 	$scope.changePass = function(email) {
 		let oldPassword = document.querySelector('input[type="email"]').getAttribute("data-value");
@@ -19,7 +19,7 @@ angular.module('changeApp', []).controller('changeCtrl', function($scope, $http)
 				create.password = oldPassword;
 				create.newPassword = $scope.password;
 				$http({
-					url: "http://localhost:8080/EmployeeManager/api/password",
+					url: "/EmployeeManager/api/password",
 					method: "PUT",
 					data: JSON.stringify(create)
 				}).then(function(response) {

@@ -20,7 +20,7 @@ for (let i = 0; i < listItem.length; i++) {
 function logoutEvent() {
 	localStorage.clear();
 	sessionStorage.clear();
-	location.href = "http://localhost:8080/EmployeeManager/login";
+	location.href = "http://103.188.82.90/EmployeeManager/login";
 }
 
 //Responsive dashboard

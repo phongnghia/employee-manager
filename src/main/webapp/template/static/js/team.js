@@ -36,7 +36,7 @@ angular.module('myApp').config(function($routeProvider) {
 				$scope.addTeam = function() {
 					$http({
 						method: 'POST',
-						url: 'http://localhost:8080/EmployeeManager/api/team',
+						url: '/EmployeeManager/api/team',
 						data: $scope.loadteams
 					}).then(function(res) {
 						_loadTeamData();
@@ -69,7 +69,7 @@ angular.module('myApp').config(function($routeProvider) {
 	function _loadTeamData() {
 		$http({
 			method: 'GET',
-			url: 'http://localhost:8080/EmployeeManager/api/team'
+			url: '/EmployeeManager/api/team'
 		}).then(function(res) { // success
 			$scope.teams = res.data;
 
@@ -141,7 +141,7 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.Add = function() {
 		$http({
 			method: 'POST',
-			url: 'http://localhost:8080/EmployeeManager/api/team',
+			url: '/EmployeeManager/api/team',
 			data: $scope.loadteams
 		}).then(function(res) { // success
 			$location.path('/AddTeam');
@@ -159,7 +159,7 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.loadbyid = function(loadteams) {
 		$http({
 			method: 'GET',
-			url: 'http://localhost:8080/EmployeeManager/api/team/loadteam/' + loadteams + ''
+			url: '/EmployeeManager/api/team/loadteam/' + loadteams + ''
 		}).then(function(res) { // success
 			$location.path('/UpdateTeam');
 			sessionStorage.setItem("loadbyids", JSON.stringify(res.data));
@@ -197,7 +197,7 @@ angular.module('myApp').config(function($routeProvider) {
 		};
 		$http({
 			method: 'PUT',
-			url: 'http://localhost:8080/EmployeeManager/api/team',
+			url: '/EmployeeManager/api/team',
 			data: $scope.result
 		}).then(function(res) { // success
 			_loadTeamData()
@@ -213,7 +213,7 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.Delete = function() {
 		$http({
 			method: 'DELETE',
-			url: 'http://localhost:8080/EmployeeManager/api/team/' + $scope.userChecked
+			url: '/EmployeeManager/api/team/' + $scope.userChecked
 		}).then(function(res) { // success
 			$scope.deletesuccsess = "xoa thanh cong";
 			_loadTeamData();
@@ -231,7 +231,7 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.Information = function(id) {
 		$http({
 			method: 'GET',
-			url: 'http://localhost:8080/EmployeeManager/api/team/inforteam/' + id + '',
+			url: '/EmployeeManager/api/team/inforteam/' + id + '',
 		}).then(function(res) { // success
 			sessionStorage.setItem("inforname", JSON.stringify(res.data));
 			$location.path('/InformationTeam');
@@ -252,7 +252,7 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.informationitem = function(userid) {
 		$http({
 			method: 'GET',
-			url: 'http://localhost:8080/EmployeeManager/api/user/' + userid + '/inforteamitem',
+			url: '/EmployeeManager/api/user/' + userid + '/inforteamitem',
 		}).then(function(res) { // success
 			$scope.checkChose = false;
 			$scope.infornameitem = res.data;

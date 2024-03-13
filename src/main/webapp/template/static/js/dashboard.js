@@ -18,7 +18,7 @@
 		$scope.closeModal = closeModalEvent;
 		// Check login
 		if (!localStorage.user) {
-			location.href = "http://localhost:8080/EmployeeManager/login";
+			location.href = "http://103.188.82.90/EmployeeManager/login";
 		} else {
 			$scope.dataUser = JSON.parse(localStorage.user);
 		}

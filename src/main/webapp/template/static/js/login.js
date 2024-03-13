@@ -33,11 +33,11 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 				login.password = password;
 				$http({
 					method: "POST",
-					url: "http://localhost:8080/EmployeeManager/api/login",
+					url: "/EmployeeManager/api/login",
 					data: JSON.stringify(login)
 				}).then(function(response) {
 					if (response.data.message == "true") {
-						location.href = "http://localhost:8080/EmployeeManager/home";
+						location.href = "http://103.188.82.90/EmployeeManager/home";
 						localStorage.setItem("user", JSON.stringify(response.data));
 						$scope.error = true;
 					} else {
@@ -65,7 +65,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 		$scope.alert = "Please, wait a few minutes !";
 		if (check(email) == true) {
 			$http({
-				url: "http://localhost:8080/EmployeeManager/api/sendemail?email=" + email,
+				url: "/EmployeeManager/api/sendemail?email=" + email,
 				method: "POST"
 			}).then(function(response) {
 				if (response.data.message == "true") {
@@ -102,7 +102,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 				create.password = password;
 				create.newPassword = newpassword;
 				$http({
-					url: "http://localhost:8080/EmployeeManager/api/password",
+					url: "/EmployeeManager/api/password",
 					method: "PUT",
 					data: JSON.stringify(create)
 				}).then(function(response) {
