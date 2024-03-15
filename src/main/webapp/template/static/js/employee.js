@@ -103,9 +103,11 @@ angular.module('myApp').config(function($routeProvider) {
                 url: '/EmployeeManager/api/user/' + arr,
             }).then(function(response) {
                 _refreshEmployeeData(0);
+                _loadDiaLogSuccess();
                 arr = [];
             }, function(response) {
                 _refreshEmployeeData(0);
+                _loadDiaLogError();
                 console.log(response + selectCheck);
             });
         }
@@ -127,20 +129,6 @@ angular.module('myApp').config(function($routeProvider) {
             $scope.employeeForm.team = employeess.team;
         }
 	};
-
-    function _loadDiaLogPermission(){
-        $mdDialog.show({
-        	templateUrl: 'dialogPermission.tmpl.html',
-        	parent: angular.element(document.body),
-        	clickOutsideToClose: true,
-        	fullscreen: $scope.customFullscreen,
-        	controller: function($scope, $mdDialog) {
-        		$scope.cancelPermission = function() {
-        			$mdDialog.cancel();
-        		};
-        	}
-        });
-    }
 
 	// method GET data with API Technical
 	function _refreshEmployeeData(id) {
@@ -207,6 +195,7 @@ angular.module('myApp').config(function($routeProvider) {
 		_refreshEmployeeData();
 		_refreshPositionData();
 		_clearFormData();
+		_loadDiaLogSuccess();
 	}
 	function _error(res) {
 		var data = res.data;
@@ -241,5 +230,47 @@ angular.module('myApp').config(function($routeProvider) {
 			console.log("Error: ");
 		});
 	}
+
+    function _loadDiaLogPermission(){
+        $mdDialog.show({
+        	templateUrl: 'dialogPermission.tmpl.html',
+        	parent: angular.element(document.body),
+        	clickOutsideToClose: true,
+        	fullscreen: $scope.customFullscreen,
+        	controller: function($scope, $mdDialog) {
+        		$scope.cancelPermission = function() {
+        			$mdDialog.cancel();
+        		};
+        	}
+        });
+    }
+
+    function _loadDiaLogSuccess(){
+        $mdDialog.show({
+        	templateUrl: 'dialogSuccess.tmpl.html',
+        	parent: angular.element(document.body),
+        	clickOutsideToClose: true,
+        	fullscreen: $scope.customFullscreen,
+        	controller: function($scope, $mdDialog) {
+        		$scope.cancelButton = function() {
+        			$mdDialog.cancel();
+        		};
+        	}
+        });
+    }
+
+    function _loadDiaLogError(){
+        $mdDialog.show({
+        	templateUrl: 'dialogError.tmpl.html',
+        	parent: angular.element(document.body),
+        	clickOutsideToClose: true,
+        	fullscreen: $scope.customFullscreen,
+        	controller: function($scope, $mdDialog) {
+        		$scope.cancelButton = function() {
+        			$mdDialog.cancel();
+        		};
+        	}
+        });
+    }
 
 });

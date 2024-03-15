@@ -127,6 +127,38 @@
     		</md-dialog-actions>
     	</md-dialog>
     </script>
+    <script type="text/ng-template" id="dialogSuccess.tmpl.html">
+        <md-dialog>
+        	<md-dialog-content>
+        		<div class="md-dialog-content">
+        			<h4>Success! Your submission has been successfully.</h4>
+        			<span flex></span>
+        		</div>
+        	</md-dialog-content>
+
+        	<md-dialog-actions layout="row">
+        		<md-button ng-click="cancelButton()">
+        			Close
+        		</md-button>
+        	</md-dialog-actions>
+        </md-dialog>
+    </script>
+    <script type="text/ng-template" id="dialogError.tmpl.html">
+    	<md-dialog>
+    		<md-dialog-content>
+    			<div class="md-dialog-content">
+    				<h4>Error! Something went wrong.</h4>
+    				<span flex></span>
+    			</div>
+    		</md-dialog-content>
+
+    		<md-dialog-actions layout="row">
+    			<md-button ng-click="cancelButton()">
+    				Close
+    			</md-button>
+    		</md-dialog-actions>
+    	</md-dialog>
+    </script>
 	<!-- Bootstrap 4 -->
 	<script
 		src='<c:url value = "/template/static/libs/jquery-3.5.1.slim.min.js"/>'></script>

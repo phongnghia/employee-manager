@@ -94,7 +94,6 @@ angular.module('myApp').config(function($routeProvider) {
 	// edit User
 	$scope.editUser = function(eachUser) {
 		console.log(eachUser);
-		console.log($scope.authorize.id == $scope.detailUser.id)
         if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.eachUser.id) {
             _loadDiaLogPermission();
         } else {
@@ -109,8 +108,10 @@ angular.module('myApp').config(function($routeProvider) {
                         'Content-Type': 'application/json'
                     }
                 }).then(function(response) {
+                    _loadDiaLogSuccess();
                     console.log(response);
                 }, function(response) {
+                    _loadDiaLogError();
                     console.log(response);
                 });
             }
@@ -231,7 +232,9 @@ angular.module('myApp').config(function($routeProvider) {
                 url: '/EmployeeManager/' + $scope.detailUser.id + '/api/technical/' + idTechnicals,
             }).then(function(response) {
                 _loadTechnicalData();
+                _loadDiaLogSuccess();
             }, function(response) {
+                _loadDiaLogError();
                 console.log(response + selectCheckTechnical);
             });
         }
@@ -304,12 +307,13 @@ angular.module('myApp').config(function($routeProvider) {
 
 	function _clearTechnicalFormData() {
 		$scope.TechnicalForm.skill = "",
-			$scope.TechnicalForm.level = ""
+		$scope.TechnicalForm.level = ""
 	};
 
 	function _successTechnical(res) {
 		_loadTechnicalData();
 		_clearTechnicalFormData();
+		_loadDiaLogSuccess();
 	}
 
 
@@ -373,6 +377,7 @@ angular.module('myApp').config(function($routeProvider) {
 			/*============================*/
 
 		}, function(res) { // error
+		    _loadDiaLogError();
 			console.log("Error: " + res.status + " : " + res.data);
 		});
 	}
@@ -397,7 +402,9 @@ angular.module('myApp').config(function($routeProvider) {
                 url: '/EmployeeManager/' + $scope.detailUser.id + '/api/advantage/' + idAdvantages,
             }).then(function(response) {
                 _loadAdvantageData();
+                _loadDiaLogSuccess();
             }, function(response) {
+                _loadDiaLogError();
                 console.log(response + selectCheckAdvantage);
             });
         }
@@ -475,6 +482,7 @@ angular.module('myApp').config(function($routeProvider) {
 	function _successAdvantage(res) {
 		_loadAdvantageData();
 		_clearAdvantageFormData();
+		_loadDiaLogSuccess();
 	}
 
     function _loadDiaLogPermission(){
@@ -486,7 +494,34 @@ angular.module('myApp').config(function($routeProvider) {
         	controller: function($scope, $mdDialog) {
         		$scope.cancelPermission = function() {
         			$mdDialog.cancel();
-        			location.reload();
+        		};
+        	}
+        });
+    }
+
+    function _loadDiaLogSuccess(){
+        $mdDialog.show({
+        	templateUrl: 'dialogSuccess.tmpl.html',
+        	parent: angular.element(document.body),
+        	clickOutsideToClose: true,
+        	fullscreen: $scope.customFullscreen,
+        	controller: function($scope, $mdDialog) {
+        		$scope.cancelButton = function() {
+        			$mdDialog.cancel();
+        		};
+        	}
+        });
+    }
+
+    function _loadDiaLogError(){
+        $mdDialog.show({
+        	templateUrl: 'dialogError.tmpl.html',
+        	parent: angular.element(document.body),
+        	clickOutsideToClose: true,
+        	fullscreen: $scope.customFullscreen,
+        	controller: function($scope, $mdDialog) {
+        		$scope.cancelButton = function() {
+        			$mdDialog.cancel();
         		};
         	}
         });
