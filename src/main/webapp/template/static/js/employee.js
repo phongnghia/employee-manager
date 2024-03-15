@@ -240,6 +240,7 @@ angular.module('myApp').config(function($routeProvider) {
         	controller: function($scope, $mdDialog) {
         		$scope.cancelPermission = function() {
         			$mdDialog.cancel();
+        			location.reload();
         		};
         	}
         });
@@ -268,6 +269,7 @@ angular.module('myApp').config(function($routeProvider) {
         	controller: function($scope, $mdDialog) {
         		$scope.cancelButton = function() {
         			$mdDialog.cancel();
+        			location.reload();
         		};
         	}
         });

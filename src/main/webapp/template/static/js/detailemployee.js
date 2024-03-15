@@ -109,11 +109,9 @@ angular.module('myApp').config(function($routeProvider) {
                     }
                 }).then(function(response) {
                     _loadDiaLogSuccess();
-                    location.reload();
                     console.log(response);
                 }, function(response) {
                     _loadDiaLogError();
-                    location.reload();
                     console.log(response);
                 });
             }
@@ -496,6 +494,7 @@ angular.module('myApp').config(function($routeProvider) {
         	controller: function($scope, $mdDialog) {
         		$scope.cancelPermission = function() {
         			$mdDialog.cancel();
+        			location.reload();
         		};
         	}
         });
@@ -524,6 +523,7 @@ angular.module('myApp').config(function($routeProvider) {
         	controller: function($scope, $mdDialog) {
         		$scope.cancelButton = function() {
         			$mdDialog.cancel();
+        			location.reload();
         		};
         	}
         });
