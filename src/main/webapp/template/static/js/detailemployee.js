@@ -109,9 +109,11 @@ angular.module('myApp').config(function($routeProvider) {
                     }
                 }).then(function(response) {
                     _loadDiaLogSuccess();
+                    location.reload();
                     console.log(response);
                 }, function(response) {
                     _loadDiaLogError();
+                    location.reload();
                     console.log(response);
                 });
             }
