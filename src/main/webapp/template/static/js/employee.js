@@ -105,6 +105,7 @@ angular.module('myApp').config(function($routeProvider) {
                 _refreshEmployeeData(0);
                 arr = [];
             }, function(response) {
+                _refreshEmployeeData(0);
                 console.log(response + selectCheck);
             });
         }

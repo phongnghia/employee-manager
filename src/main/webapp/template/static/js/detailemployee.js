@@ -21,6 +21,7 @@ angular.module('myApp').config(function($routeProvider) {
 	};
 	// Get data User
 	$scope.detailUser = JSON.parse(sessionStorage.detailuser);
+	$scope.authorize = JSON.parse(localStorage.user)
 
 	function _loadRoleData() {
 		$http({
@@ -93,23 +94,30 @@ angular.module('myApp').config(function($routeProvider) {
 	// edit User
 	$scope.editUser = function(eachUser) {
 		console.log(eachUser);
-		if (eachUser.idRole == null || eachUser.idTeam == null) {
-			alert("Form can't blank");
-		} else {
-			$http({
-				method: 'PUT',
-				url: '/EmployeeManager/api/user/' + eachUser.id,
-				data: angular.toJson(eachUser),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(function(response) {
-				console.log(response);
-			}, function(response) {
-				console.log(response);
-			});
-		}
+		console.log($scope.authorize.id == $scope.detailUser.id)
+        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.eachUser.id) {
+            _loadDiaLogPermission();
+        } else {
+            if (eachUser.idRole == null || eachUser.idTeam == null) {
+                alert("Form can't blank");
+            } else {
+                $http({
+                    method: 'PUT',
+                    url: '/EmployeeManager/api/user/' + eachUser.id,
+                    data: angular.toJson(eachUser),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function(response) {
+                    console.log(response);
+                }, function(response) {
+                    console.log(response);
+                });
+            }
+        }
 	};
+
+	// Back to home
 	$scope.backEmployee = function() {
 		sessionStorage.clear();
 		$scope.viewEmployee = "file/employee/listemployee.html";
@@ -208,78 +216,90 @@ angular.module('myApp').config(function($routeProvider) {
 
 	// Method Delete List Technical
 	$scope.deleteListTechnical = function(selectCheckTechnical) {
+        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+            _loadDiaLogPermission();
+        } else {
+            // array ID Technical
+            let idTechnicals = [];
+            for (let i of selectCheckTechnical) {
+                idTechnicals.push(i.id);
+            }
 
-		// array ID Technical
-		let idTechnicals = [];
-		for (let i of selectCheckTechnical) {
-			idTechnicals.push(i.id);
-		}
-
-		// Delete call API delete
-		$http({
-			method: 'DELETE',
-			url: '/EmployeeManager/' + $scope.detailUser.id + '/api/technical/' + idTechnicals,
-		}).then(function(response) {
-			_loadTechnicalData();
-		}, function(response) {
-			console.log(response + selectCheckTechnical);
-		});
+            // Delete call API delete
+            $http({
+                method: 'DELETE',
+                url: '/EmployeeManager/' + $scope.detailUser.id + '/api/technical/' + idTechnicals,
+            }).then(function(response) {
+                _loadTechnicalData();
+            }, function(response) {
+                console.log(response + selectCheckTechnical);
+            });
+        }
 	};
 
 	// method POST data with API Technical
 	$scope.submitTechnical = function() {
-		if ($scope.TechnicalForm.skill == "" || $scope.TechnicalForm.level == "") {
-			return alert("Blank Form!");
-		} else {
-			$http({
-				method: 'POST',
-				url: '/EmployeeManager/' + $scope.detailUser.id + '/api/technical',
-				data: angular.toJson($scope.TechnicalForm),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(_successTechnical, _error);
-		}
+        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+            _loadDiaLogPermission();
+        } else {
+            if ($scope.TechnicalForm.skill == "" || $scope.TechnicalForm.level == "") {
+                return alert("Blank Form!");
+            } else {
+                $http({
+                    method: 'POST',
+                    url: '/EmployeeManager/' + $scope.detailUser.id + '/api/technical',
+                    data: angular.toJson($scope.TechnicalForm),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(_successTechnical, _error);
+            }
+        }
 	};
+
 	$scope.showAdvancedTechnical = function(technical) {
-		$mdDialog.show({
-			templateUrl: 'dialogEditTechnical.tmpl.html',
-			// Appending dialog to document.body to cover sidenav in docs app
-			// Modal dialogs should fully cover application to prevent
-			// interaction outside of dialog
-			parent: angular.element(document.body),
-			targetEvent: technical,
-			clickOutsideToClose: true,
-			fullscreen: $scope.customFullscreen, // Only for -xs, -sm
-			// breakpoints.
-			controller: function($scope, $mdDialog) {
-				$scope.dataValue = technical;
-				$scope.hideTech = function() {
-					$mdDialog.hide();
-				};
+	    if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+            _loadDiaLogPermission();
+        } else {
+            $mdDialog.show({
+                templateUrl: 'dialogEditTechnical.tmpl.html',
+                // Appending dialog to document.body to cover sidenav in docs app
+                // Modal dialogs should fully cover application to prevent
+                // interaction outside of dialog
+                parent: angular.element(document.body),
+                targetEvent: technical,
+                clickOutsideToClose: true,
+                fullscreen: $scope.customFullscreen, // Only for -xs, -sm
+                // breakpoints.
+                controller: function($scope, $mdDialog) {
+                    $scope.dataValue = technical;
+                    $scope.hideTech = function() {
+                        $mdDialog.hide();
+                    };
 
-				$scope.cancelTech = function() {
-					$mdDialog.cancel();
-				};
+                    $scope.cancelTech = function() {
+                        $mdDialog.cancel();
+                    };
 
-				$scope.answerTech = function(answer) {
-					$mdDialog.hide(answer);
-				};
-				// edit Technical
-				$scope.editTechnical = function(tech) {
-					$http({
-						method: 'PUT',
-						url: '/EmployeeManager/api/technical/' + tech.id,
-						data: angular.toJson(tech),
-						headers: {
-							'Content-Type': 'application/json'
-						}
-					}).then(_successAdvantage, _error);
-				};
-			}
-		}).then(function(answer) {
-		}, function() {
-		});
+                    $scope.answerTech = function(answer) {
+                        $mdDialog.hide(answer);
+                    };
+                    // edit Technical
+                    $scope.editTechnical = function(tech) {
+                        $http({
+                            method: 'PUT',
+                            url: '/EmployeeManager/api/technical/' + tech.id,
+                            data: angular.toJson(tech),
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(_successAdvantage, _error);
+                    };
+                }
+            }).then(function(answer) {
+            }, function() {
+            });
+        }
 	};
 
 	function _clearTechnicalFormData() {
@@ -362,79 +382,90 @@ angular.module('myApp').config(function($routeProvider) {
 
 	// Method Delete List Advantage
 	$scope.deleteListAdvantage = function(selectCheckAdvantage) {
+        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+            _loadDiaLogPermission();
+        } else {
+            // array ID Advantage
+            let idAdvantages = [];
+            for (let i of selectCheckAdvantage) {
+                idAdvantages.push(i.id);
+            }
 
-		// array ID Advantage
-		let idAdvantages = [];
-		for (let i of selectCheckAdvantage) {
-			idAdvantages.push(i.id);
-		}
-
-		// Delete call API delete
-		$http({
-			method: 'DELETE',
-			url: '/EmployeeManager/' + $scope.detailUser.id + '/api/advantage/' + idAdvantages,
-		}).then(function(response) {
-			_loadAdvantageData();
-		}, function(response) {
-			console.log(response + selectCheckAdvantage);
-		});
+            // Delete call API delete
+            $http({
+                method: 'DELETE',
+                url: '/EmployeeManager/' + $scope.detailUser.id + '/api/advantage/' + idAdvantages,
+            }).then(function(response) {
+                _loadAdvantageData();
+            }, function(response) {
+                console.log(response + selectCheckAdvantage);
+            });
+        }
 	};
 
 	// method POST data with API Technical
 	$scope.submitAdvantage = function() {
-		if ($scope.advantageForm.name == "") {
-			return alert("Blank Form!");
-		} else {
-			$http({
-				method: 'POST',
-				url: '/EmployeeManager/' + $scope.detailUser.id + '/api/advantage',
-				data: angular.toJson($scope.advantageForm),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			}).then(_successAdvantage, _error);
-		}
+        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+            _loadDiaLogPermission();
+        } else {
+            if ($scope.advantageForm.name == "") {
+                return alert("Blank Form!");
+            } else {
+                $http({
+                    method: 'POST',
+                    url: '/EmployeeManager/' + $scope.detailUser.id + '/api/advantage',
+                    data: angular.toJson($scope.advantageForm),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(_successAdvantage, _error);
+            }
+        }
 	};
 
 	$scope.showAdvanced = function(advantage) {
-		$mdDialog.show({
-			templateUrl: 'dialogEditAdvantage.tmpl.html',
-			// Appending dialog to document.body to cover sidenav in docs app
-			// Modal dialogs should fully cover application to prevent
-			// interaction outside of dialog
-			parent: angular.element(document.body),
-			targetEvent: advantage,
-			clickOutsideToClose: true,
-			fullscreen: $scope.customFullscreen, // Only for -xs, -sm
-			// breakpoints.
-			controller: function($scope, $mdDialog) {
-				$scope.dataValue = advantage;
-				$scope.hideAdvantage = function() {
-					$mdDialog.hide();
-				};
+        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+            _loadDiaLogPermission();
+        } else {
+            $mdDialog.show({
+                templateUrl: 'dialogEditAdvantage.tmpl.html',
+                // Appending dialog to document.body to cover sidenav in docs app
+                // Modal dialogs should fully cover application to prevent
+                // interaction outside of dialog
+                parent: angular.element(document.body),
+                targetEvent: advantage,
+                clickOutsideToClose: true,
+                fullscreen: $scope.customFullscreen, // Only for -xs, -sm
+                // breakpoints.
+                controller: function($scope, $mdDialog) {
+                    $scope.dataValue = advantage;
+                    $scope.hideAdvantage = function() {
+                        $mdDialog.hide();
+                    };
 
-				$scope.cancelAdvantage = function() {
-					$mdDialog.cancel();
-				};
+                    $scope.cancelAdvantage = function() {
+                        $mdDialog.cancel();
+                    };
 
-				$scope.answerAdvantage = function(answer) {
-					$mdDialog.hide(answer);
-				};
-				// edit Advantage
-				$scope.editAdvantage = function(advantage) {
-					$http({
-						method: 'PUT',
-						url: '/EmployeeManager/api/advantage/' + advantage.id,
-						data: angular.toJson(advantage),
-						headers: {
-							'Content-Type': 'application/json'
-						}
-					}).then(_successAdvantage, _error);
-				};
-			}
-		}).then(function(answer) {
-		}, function() {
-		});
+                    $scope.answerAdvantage = function(answer) {
+                        $mdDialog.hide(answer);
+                    };
+                    // edit Advantage
+                    $scope.editAdvantage = function(advantage) {
+                        $http({
+                            method: 'PUT',
+                            url: '/EmployeeManager/api/advantage/' + advantage.id,
+                            data: angular.toJson(advantage),
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(_successAdvantage, _error);
+                    };
+                }
+            }).then(function(answer) {
+            }, function() {
+            });
+        }
 	};
 
 	function _clearAdvantageFormData() {
@@ -445,5 +476,20 @@ angular.module('myApp').config(function($routeProvider) {
 		_loadAdvantageData();
 		_clearAdvantageFormData();
 	}
+
+    function _loadDiaLogPermission(){
+        $mdDialog.show({
+        	templateUrl: 'dialogPermission.tmpl.html',
+        	parent: angular.element(document.body),
+        	clickOutsideToClose: true,
+        	fullscreen: $scope.customFullscreen,
+        	controller: function($scope, $mdDialog) {
+        		$scope.cancelPermission = function() {
+        			$mdDialog.cancel();
+        			location.reload();
+        		};
+        	}
+        });
+    }
 
 });
