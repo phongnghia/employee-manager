@@ -76,8 +76,18 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.submitEmployee = function(employeeForm) {
 		console.log(employeeForm);
 
-		if (employeeForm.sex == "" && employeeForm.status == "") {
-		    _loadDiaLogError();
+		if (employeeForm.sex == "" || employeeForm.status == "") {
+            $mdDialog.show({
+                templateUrl: 'dialogError.tmpl.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: true,
+                fullscreen: $scope.customFullscreen,
+                controller: function($scope, $mdDialog) {
+                    $scope.cancelButton = function() {
+                        $mdDialog.cancel();
+                    };
+                }
+            });
 		} else {
             var method = "POST";
             var url = "/EmployeeManager/api/user";
