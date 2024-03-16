@@ -40,7 +40,7 @@ angular.module('myApp').config(function($routeProvider) {
 			    if (!$scope.isAdmin) {
                     for (var i = 0; i < roleNames.length; i++){
                         if (roleNames[i].name == "ADMIN") {
-                            roleNames.splice(i);
+                            roleNames.splice(i, 1);
                         } else {
                             continue;
                         }
