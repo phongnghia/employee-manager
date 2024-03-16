@@ -148,7 +148,6 @@ angular.module('myApp').config(function($routeProvider) {
 		        for (var i = 0; i < listEmployees.length; i++){
 		            if (listEmployees[i].roleName == "ADMIN"){
 		                listEmployees.splice(i);
-		                break;
 		            } else {
 		                continue;
 		            }
