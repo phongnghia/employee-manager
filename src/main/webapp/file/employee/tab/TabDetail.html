@@ -26,7 +26,7 @@
 		<tr>
 			<td><label>Role</label></td>
 			<td class="employee-detail__tab--detail--display"><select
-				ng-model="eachUser.idRole">
+				ng-model="eachUser.idRole" ng-disabled="{{disableSelectRole}}">
 					<option ng-repeat="role in roles" ng-value="{{role.id}}"
 						ng-bind="role.name"></option>
 			</select></td>
@@ -40,17 +40,17 @@
 			<td><label>Is active</label></td>
 			<td class="employee-detail__tab--detail--display"><input
 				class="detail--active" type="checkbox" ng-model="eachUser.status"
-				ng-true-value="1" ng-false-value="0" checked="checked">
+				ng-true-value="1" ng-false-value="0" checked="checked" ng-disabled="{{disableSelectRole}}">
 		</tr>
 		<tr>
 			<td><label>Day start</label></td>
 			<td class="employee-detail__tab--detail--display"><md-datepicker
-					id="timePicker" ng-model="eachUser.dayStart"></md-datepicker></td>
+					id="timePicker" ng-model="eachUser.dayStart" ng-disabled="{{disableSelectRole}}"></md-datepicker></td>
 		</tr>
 		<tr>
 			<td><label>Team</label></td>
 			<td class="employee-detail__tab--detail--display"><select
-				ng-model="eachUser.idTeam">
+				ng-model="eachUser.idTeam" ng-disabled="{{disableSelectRole}}">
 					<option ng-repeat="team in selectTeam" ng-value="{{team.id}}"
 						ng-bind="team.name"></option>
 			</select></td>

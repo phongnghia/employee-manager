@@ -19,7 +19,14 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.employees;
 	$scope.positiones;
 	$scope.teames;
-	$scope.authorize = JSON.parse(localStorage.user)
+	$scope.authorize = JSON.parse(localStorage.user);
+	if ($scope.authorize.roleName != "ADMIN") {
+	    $scope.isAdmin = false;
+	    $scope.disableSelectRole = true;
+	} else {
+	    $scope.isAdmin = true;
+	    $scope.disableSelectRole = false;
+	}
 
 	//Now load the data from server
 	_refreshEmployeeData(0);
@@ -80,7 +87,7 @@ angular.module('myApp').config(function($routeProvider) {
 	};
 
 	$scope.createEmployee = function() {
-        if ($scope.authorize.roleName != "ADMIN") {
+        if (!$scope.isAdmin) {
             _loadDiaLogPermission();
         } else {
             $scope.changeViewEmployee = changeViewEventEmployee;
@@ -91,7 +98,7 @@ angular.module('myApp').config(function($routeProvider) {
 
 	//Method Delete
 	$scope.deleteEmployee = function(selectCheck) {
-	    if ($scope.authorize.roleName != "ADMIN") {
+	    if (!$scope.isAdmin) {
             _loadDiaLogPermission();
         } else {
             let arr = [];
@@ -115,7 +122,7 @@ angular.module('myApp').config(function($routeProvider) {
 
 	// In case of edit
 	$scope.editEmployee = function(employeess) {
-	    if ($scope.authorize.roleName != "ADMIN") {
+	    if (!$scope.isAdmin) {
             _loadDiaLogPermission();
         } else {
             $scope.employeeForm.name = employeess.name;
@@ -136,7 +143,18 @@ angular.module('myApp').config(function($routeProvider) {
 			method: 'GET',
 			url: '/EmployeeManager/api/user/' + id,
 		}).then(function(res) { // success
-			$scope.employees = res.data;
+		    listEmployees = res.data;
+		    if (!$scope.isAdmin) {
+		        for (var i = 0; i < listEmployees.length; i++){
+		            if (listEmployees[i].roleName == "ADMIN"){
+		                listEmployees.splice(i);
+		                break;
+		            } else {
+		                continue;
+		            }
+		        }
+		    }
+			$scope.employees = listEmployees;
 
 
 			$scope.isIndeterminate = function() {

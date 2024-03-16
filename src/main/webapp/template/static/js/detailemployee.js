@@ -21,7 +21,14 @@ angular.module('myApp').config(function($routeProvider) {
 	};
 	// Get data User
 	$scope.detailUser = JSON.parse(sessionStorage.detailuser);
-	$scope.authorize = JSON.parse(localStorage.user)
+	$scope.authorize = JSON.parse(localStorage.user);
+	if ($scope.authorize.roleName != "ADMIN") {
+	    $scope.isAdmin = false;
+	    $scope.disableSelectRole = true;
+	} else {
+	    $scope.isAdmin = true;
+	    $scope.disableSelectRole = false;
+	}
 
 	function _loadRoleData() {
 		$http({
@@ -29,7 +36,18 @@ angular.module('myApp').config(function($routeProvider) {
 			url: '/EmployeeManager/api/position'
 		}).then(
 			function(res) {
-				$scope.roles = res.data;
+			    roleNames = res.data;
+			    if (!$scope.isAdmin) {
+                    for (var i = 0; i < roleNames.length; i++){
+                        if (roleNames[i].name == "ADMIN") {
+                            roleNames.splice(i);
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+                }
+				$scope.roles = roleNames;
 			},
 			function(res) {
 				console.log("Error: " + res.status + " : " + res.data);
@@ -94,7 +112,7 @@ angular.module('myApp').config(function($routeProvider) {
 	// edit User
 	$scope.editUser = function(eachUser) {
 		console.log(eachUser);
-        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.eachUser.id) {
+        if (!$scope.isAdmin && $scope.authorize.id != $scope.eachUser.id) {
             _loadDiaLogPermission();
         } else {
             if (eachUser.idRole == null || eachUser.idTeam == null) {
@@ -217,7 +235,7 @@ angular.module('myApp').config(function($routeProvider) {
 
 	// Method Delete List Technical
 	$scope.deleteListTechnical = function(selectCheckTechnical) {
-        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+        if (!$scope.isAdmin && $scope.authorize.id != $scope.detailUser.id) {
             _loadDiaLogPermission();
         } else {
             // array ID Technical
@@ -242,7 +260,7 @@ angular.module('myApp').config(function($routeProvider) {
 
 	// method POST data with API Technical
 	$scope.submitTechnical = function() {
-        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+        if (!$scope.isAdmin && $scope.authorize.id != $scope.detailUser.id) {
             _loadDiaLogPermission();
         } else {
             if ($scope.TechnicalForm.skill == "" || $scope.TechnicalForm.level == "") {
@@ -261,7 +279,7 @@ angular.module('myApp').config(function($routeProvider) {
 	};
 
 	$scope.showAdvancedTechnical = function(technical) {
-	    if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+	    if (!$scope.isAdmin && $scope.authorize.id != $scope.detailUser.id) {
             _loadDiaLogPermission();
         } else {
             $mdDialog.show({
@@ -387,7 +405,7 @@ angular.module('myApp').config(function($routeProvider) {
 
 	// Method Delete List Advantage
 	$scope.deleteListAdvantage = function(selectCheckAdvantage) {
-        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+        if (!$scope.isAdmin && $scope.authorize.id != $scope.detailUser.id) {
             _loadDiaLogPermission();
         } else {
             // array ID Advantage
@@ -412,7 +430,7 @@ angular.module('myApp').config(function($routeProvider) {
 
 	// method POST data with API Technical
 	$scope.submitAdvantage = function() {
-        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+        if (!$scope.isAdmin && $scope.authorize.id != $scope.detailUser.id) {
             _loadDiaLogPermission();
         } else {
             if ($scope.advantageForm.name == "") {
@@ -431,7 +449,7 @@ angular.module('myApp').config(function($routeProvider) {
 	};
 
 	$scope.showAdvanced = function(advantage) {
-        if ($scope.authorize.roleName != "ADMIN" && $scope.authorize.id != $scope.detailUser.id) {
+        if (!$scope.isAdmin && $scope.authorize.id != $scope.detailUser.id) {
             _loadDiaLogPermission();
         } else {
             $mdDialog.show({
