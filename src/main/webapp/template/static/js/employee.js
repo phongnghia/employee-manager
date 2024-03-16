@@ -76,7 +76,7 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.submitEmployee = function(employeeForm) {
 		console.log(employeeForm);
 
-		if (employeeForm.sex == "" || employeeForm.status == "") {
+		if (employeeForm.sex === "" || employeeForm.status === "") {
             $mdDialog.show({
                 templateUrl: 'dialogError.tmpl.html',
                 parent: angular.element(document.body),
