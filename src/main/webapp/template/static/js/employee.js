@@ -76,14 +76,18 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.submitEmployee = function(employeeForm) {
 		console.log(employeeForm);
 
-		var method = "POST";
-		var url = "/EmployeeManager/api/user";
+		if (employeeForm.sex != "" || employeeForm.status != "") {
+		    _error;
+		} else {
+            var method = "POST";
+            var url = "/EmployeeManager/api/user";
 
-		$http({
-			method: method,
-			url: url,
-			data: JSON.stringify(employeeForm)
-		}).then(_success, _error);
+            $http({
+                method: method,
+                url: url,
+                data: JSON.stringify(employeeForm)
+            }).then(_success, _error);
+        }
 	};
 
 	$scope.createEmployee = function() {
