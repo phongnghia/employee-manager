@@ -41,7 +41,6 @@ angular.module('myApp').config(function($routeProvider) {
                     for (var i = 0; i < roleNames.length; i++){
                         if (roleNames[i].name == "ADMIN") {
                             roleNames.splice(i);
-                            break;
                         } else {
                             continue;
                         }
