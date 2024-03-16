@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e -x
+
+PACKAGE_NAME=$1
+PACKAGE_VERSION=$2
+PACKAGE_TARGET_FILENAME="$PACKAGE_NAME-$PACKAGE_VERSION.war"
+PACKAGE_NAME_TO_UPLOAD="$PACKAGE_NAME.war"
+PACKAGE_PATH_FILE="target/$PACKAGE_TARGET_FILENAME"
+
+cp -v $PACKAGE_PATH_FILE ../packages/$PACKAGE_NAME_TO_UPLOAD
+cd ../packages
+git config --global user.email "phamhongnghia13579@gmail.com"
+git config --global user.name "nghia pham"
+git config --global credential.helper store
+git add .
+git commit -m "upload packages"
+
+[ $? -ne 0 ] && echo "Error" && exit 1
+
+echo "Upload done!"
