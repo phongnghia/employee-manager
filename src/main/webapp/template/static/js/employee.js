@@ -76,8 +76,8 @@ angular.module('myApp').config(function($routeProvider) {
 	$scope.submitEmployee = function(employeeForm) {
 		console.log(employeeForm);
 
-		if (employeeForm.sex != "" || employeeForm.status != "") {
-		    _error;
+		if (employeeForm.sex != "" && employeeForm.status != "") {
+		    _loadDiaLogError();
 		} else {
             var method = "POST";
             var url = "/EmployeeManager/api/user";
