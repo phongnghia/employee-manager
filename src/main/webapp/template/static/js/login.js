@@ -54,7 +54,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 			}
 		} else {
 			$scope.error = false;
-			$scope.alert = "Email is not invalid";
+			$scope.alert = "Email is invalid";
 		}
 	}
 	$scope.onSubmitForgot = function(email) {
@@ -91,7 +91,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 			});
 		} else {
 			$scope.error = false;
-			$scope.alert = "Email is not invalid";
+			$scope.alert = "Email is invalid";
 		}
 	};
 	$scope.onSubmitCreate = function(email, password, newpassword, repassword) {
@@ -139,7 +139,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 			}
 		} else {
 			$scope.error = false;
-			$scope.alert = "Email is not invalid";
+			$scope.alert = "Email is invalid";
 		}
 	}
 });

@@ -62,7 +62,7 @@ public class JPAConfig {
 		mailSender.setHost("smtp.gmail.com");
 		mailSender.setPort(587);
 		mailSender.setUsername("internbatch6bd@gmail.com");
-		mailSender.setPassword("123456789x@X");
+		mailSender.setPassword("gwpsrgylmjjjiqiz");
 
 		Properties javaMailProperties = new Properties();
 
