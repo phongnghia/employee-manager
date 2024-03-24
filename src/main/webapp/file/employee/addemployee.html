@@ -11,7 +11,7 @@
 			<div class="col-sm-9">
 				<input ng-model="employeeForm.name" name="Name" type="text"
 					class="form-control" placeholder="Name Employee" ng-minlength="5"
-					ng-maxlength="20"> <i class="fa fa-check text-success"
+					ng-maxlength="20" required> <i class="fa fa-check text-success"
 					ng-show="form.Name.$dirty && form.Name.$valid"></i>
 				<div ng-show="form.Name.$dirty && form.Name.$invalid"
 					class="text-danger">
