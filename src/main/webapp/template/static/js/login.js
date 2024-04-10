@@ -65,6 +65,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 	$scope.onSubmitForgot = function(email) {
 	    if (document.querySelector('input[name="email"]').value == ""){
             $scope.error = false;
+            $scope.success = {}
             $scope.alert = "Email must not be empty";
             return 1;
         }
@@ -109,11 +110,13 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 	$scope.onSubmitCreate = function(email, password, newpassword, repassword) {
 	    if (document.querySelector('input[name="email"]').value == ""){
             $scope.error = false;
+            $scope.success = {}
             $scope.alert = "Email must not be empty";
             return 1;
         }
 	    if (document.querySelector('input[name="password"]').value == ""){
             $scope.error = false;
+            $scope.success = {}
             $scope.alert = "Old password must not be empty";
             return 1;
         }
@@ -148,6 +151,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 					}
 				}, function(response) {
 					$scope.error = false;
+					$scope.success = {}
 					$scope.alert = "Not connect to server";
 				});
 			} else {
@@ -161,6 +165,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 			}
 		} else {
 			$scope.error = false;
+			$scope.success = {}
 			$scope.alert = "Email is invalid";
 		}
 	}
