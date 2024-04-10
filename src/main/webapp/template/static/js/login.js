@@ -55,7 +55,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 				});
 			} else {
 				$scope.error = false;
-				$scope.alert = "Please, you entry field Password!";
+				$scope.alert = "Password must not be empty";
 			}
 		} else {
 			$scope.error = false;
@@ -152,7 +152,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 				});
 			} else {
 				if (newpassword == null || repassword == null) {
-					$scope.alert = "Please, you entry field New password or Renew password!";
+					$scope.alert = "Please, you entry field";
 				} else {
 					$scope.alert = "Re-enter incorrect password!";
 				}
