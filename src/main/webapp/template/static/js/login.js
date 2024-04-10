@@ -26,6 +26,11 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 	$scope.error = true;
 
 	$scope.onSubmit = function(email, password) {
+	    if (document.querySelector('input[name="email"]').value == ""){
+            $scope.error = false;
+            $scope.alert = "Email must not be empty";
+            return 1;
+        }
 		if (check(email) == true) {
 			if (email != null && password != null) {
 				let login = {};
@@ -50,7 +55,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 				});
 			} else {
 				$scope.error = false;
-				$scope.alert = "Please, you entry field !";
+				$scope.alert = "Please, you entry field Password!";
 			}
 		} else {
 			$scope.error = false;
@@ -58,9 +63,14 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 		}
 	}
 	$scope.onSubmitForgot = function(email) {
+	    if (document.querySelector('input[name="email"]').value == ""){
+            $scope.error = false;
+            $scope.alert = "Email must not be empty";
+            return 1;
+        }
 		$scope.error = false;
 		$scope.success = {
-			'color': 'green'
+			'color': '#4e73df'
 		};
 		$scope.alert = "Please, wait a few minutes !";
 		if (check(email) == true) {
@@ -87,14 +97,26 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 				}
 			}, function(response) {
 				$scope.error = false;
+				$scope.success = {};
 				$scope.alert = "Not connect to server";
 			});
 		} else {
 			$scope.error = false;
+			$scope.success = {}
 			$scope.alert = "Email is invalid";
 		}
 	};
 	$scope.onSubmitCreate = function(email, password, newpassword, repassword) {
+	    if (document.querySelector('input[name="email"]').value == ""){
+            $scope.error = false;
+            $scope.alert = "Email must not be empty";
+            return 1;
+        }
+	    if (document.querySelector('input[name="password"]').value == ""){
+            $scope.error = false;
+            $scope.alert = "Old password must not be empty";
+            return 1;
+        }
 		if (check(email) == true) {
 			if (newpassword == repassword && newpassword != null) {
 				let create = {};
@@ -130,7 +152,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 				});
 			} else {
 				if (newpassword == null || repassword == null) {
-					$scope.alert = "Please, you entry field !";
+					$scope.alert = "Please, you entry field New password or Renew password!";
 				} else {
 					$scope.alert = "Re-enter incorrect password!";
 				}
