@@ -7,7 +7,7 @@ angular.module('changeApp', []).controller('changeCtrl', function($scope, $http)
 	$scope.error = true;
 	$scope.alert;
 	$scope.loadIndex = function(){
-		location.href = "http://103.188.82.90/EmployeeManager/login";
+		location.href = "http://103.188.82.73/EmployeeManager/login";
 	}
 	$scope.changePass = function(email) {
 		let oldPassword = document.querySelector('input[type="email"]').getAttribute("data-value");

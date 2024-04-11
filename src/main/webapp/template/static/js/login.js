@@ -42,7 +42,7 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
 					data: JSON.stringify(login)
 				}).then(function(response) {
 					if (response.data.message == "true") {
-						location.href = "http://103.188.82.90/EmployeeManager/home";
+						location.href = "http://103.188.82.73/EmployeeManager/home";
 						localStorage.setItem("user", JSON.stringify(response.data));
 						$scope.error = true;
 					} else {

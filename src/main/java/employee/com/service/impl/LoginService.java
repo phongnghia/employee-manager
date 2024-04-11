@@ -77,7 +77,7 @@ public class LoginService implements ILoginService {
 		UserDTO userDTO = new UserDTO();
 		if (userEntity != null && userEntity.getStatus() == 1) {
 			senderEmail("internbatch6bd@gmail.com", email, "Forgot password",
-					"Link access to change password: http://103.188.82.90/EmployeeManager/forgot?email=" + email + "&password="
+					"Link access to change password: http://103.188.82.73/EmployeeManager/forgot?email=" + email + "&password="
 							+ userEntity.getPassword());
 			userDTO.setMessage("true");
 		} else {
