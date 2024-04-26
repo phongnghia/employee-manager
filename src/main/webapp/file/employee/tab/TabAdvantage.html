@@ -1,11 +1,18 @@
 <div class="employee-detail__tab--advantage">
 	<div class="row pb-4">
-		<form class="col-sm-7">
+		<form name="form" class="col-sm-7">
 			<input type="text" placeholder="Add new advantage"
-				ng-model="advantageForm.name" />
+				ng-model="advantageForm.name" ng-minlength="2" ng-maxlength="20" name="new_advantage" ng-pattern="/^[a-zA-Z\s]+$/" required />
+			<div ng-show="(form.new_advantage.$dirty && form.new_advantage.$invalid) || form.new_advantage.$error.required"
+				 class="text-danger">
+				<span ng-show="form.new_advantage.$error.required">Advantage must not be blank</span>
+				<span ng-show="form.new_advantage.$error.maxlength && !form.new_advantage.$error.required">Add new advantage less than 20 characters</span>
+				<span ng-show="form.new_advantage.$error.minlength && !form.new_advantage.$error.required">Add new advantage longer than 2 characters</span>
+				<span ng-show="form.new_advantage.$error.pattern && (!form.new_advantage.$error.maxlength && !form.new_advantage.$error.minlength)">Add new advantage do not contain special characters!</span>
+			</div>
 		</form>
 		<div class="col-sm-5">
-			<md-button ng-click="submitAdvantage()"
+			<md-button ng-disabled="!form.$dirty || (form.$dirty && form.$invalid)" ng-click="submitAdvantage()"
 				class="bg-success text-white fas fa-plus"></md-button>
 			<md-button ng-click="deleteListAdvantage(selectCheckAdvantage)"
 				class="
@@ -58,7 +65,7 @@
 </div>
 <script type="text/ng-template" id="dialogEditAdvantage.tmpl.html">
 	<md-dialog>
-		<form ng-cloak>
+		<form name="form" ng-cloak>
 			<md-toolbar>
 				<div class="md-toolbar-tools">
 					<h2>Edit advantage</h2>
@@ -68,13 +75,20 @@
 
 		<md-dialog-content>
 			<div class="md-dialog-content">
-				<input class="input__default__details" type="text" ng-model="dataValue.name" />
+				<input class="input__default__details" type="text" ng-model="dataValue.name" ng-minlength="2" ng-maxlength="20" ng-pattern="^[a-zA-Z0-9-]+$" name="edit_advantage" required />
+				<div ng-show="form.edit_advantage.$dirty && form.edit_advantage.$invalid"
+					 class="text-danger">
+					<span ng-show="form.edit_advantage.$error.maxlength">Advantage less than 20 characters</span>
+					<span ng-show="form.edit_advantage.$error.minlength && !form.edit_advantage.$error.required">Advantage longer than 2 characters</span>
+					<span ng-show="form.edit_advantage.$error.pattern">Add new advantage do not contain special characters!</span>
+					<span ng-show="form.edit_advantage.$error.required">Advantage must not be blank</span>
+				</div>
 			</div>
 		</md-dialog-content>
 
 		<md-dialog-actions layout="row">
 			<span flex></span>
-			<md-button ng-click="answerAdvantage(editAdvantage(dataValue))">
+			<md-button ng-disabled="!form.$dirty || (form.$dirty && form.$invalid)" ng-click="answerAdvantage(editAdvantage(dataValue))">
 			Save
 			</md-button>
 			<md-button ng-click="cancelAdvantage()">

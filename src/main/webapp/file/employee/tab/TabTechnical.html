@@ -1,12 +1,21 @@
 <div class="employee-detail__tab--technical pb-3">
 	<div class="row pb-4">
-		<form class="col-sm-7">
+		<form name="form" class="col-sm-7">
 			<input type="text" placeholder="Add new skill technical"
-				ng-model="TechnicalForm.skill"> <input type="text"
-				placeholder="Level" ng-model="TechnicalForm.level">
+				ng-model="TechnicalForm.skill" ng-maxlength="20" name="new_skill_technical">
+			<div ng-show="form.new_skill_technical.$dirty && form.new_skill_technical.$invalid"
+				 class="text-danger">
+				<span ng-show="form.new_skill_technical.$error.maxlength">Add new skill technical less than 20 characters</span>
+			</div>
+			<input type="text"
+				placeholder="Level" ng-model="TechnicalForm.level" ng-maxlength="20" name="new_level_technical" >
+			<div ng-show="form.new_level_technical.$dirty && form.new_level_technical.$invalid"
+				 class="text-danger">
+				<span ng-show="form.new_level_technical.$error.maxlength">Level less than 20 characters</span>
+			</div>
 		</form>
 		<div class="col-sm-5">
-			<md-button ng-click="submitTechnical()"
+			<md-button ng-disabled="!form.$dirty || (form.$dirty && form.$invalid)" ng-click="submitTechnical()"
 				class="bg-success text-white fas fa-plus"></md-button>
 			<md-button ng-click="deleteListTechnical(selectCheckTechnical)"
 				class="bg-danger text-white far fa-trash-alt"></md-button>
@@ -67,7 +76,7 @@
 </div>
 <script type="text/ng-template" id="dialogEditTechnical.tmpl.html">
 		<md-dialog>
-			<form ng-cloak>
+			<form name="form" ng-cloak>
 				<md-toolbar>
 					<div class="md-toolbar-tools">
 						<h2>Edit technical</h2>
@@ -77,14 +86,24 @@
 	
 			<md-dialog-content>
 				<div class="md-dialog-content">
-					<input class="input__default__details" type="text" ng-model="dataValue.skill" />
-					<input class="input__default__details" type="text" ng-model="dataValue.level" />
+					<input class="input__default__details" type="text" ng-minlength="2" ng-maxlength="20" required ng-model="dataValue.skill" name="edit_skill_technical" />
+					<div ng-show="form.edit_skill_technical.$dirty && form.edit_skill_technical.$invalid"
+						 class="text-danger">
+						<span ng-show="form.edit_skill_technical.$error.minlength">Technical longer than 2 characters</span>
+						<span ng-show="form.edit_skill_technical.$error.maxlength">Technical less than 20 characters</span>
+					</div>
+					<input class="input__default__details" type="text" ng-maxlength="20" required ng-model="dataValue.level" name="edit_level_technical" />
+					<div ng-show="form.edit_level_technical.$dirty && form.edit_level_technical.$invalid"
+						 class="text-danger">
+						<span ng-show="form.edit_level_technical.$error.required">Level must not be empty</span>
+						<span ng-show="form.edit_level_technical.$error.maxlength">Level less than 20 characters</span>
+					</div>
 				</div>
 			</md-dialog-content>
 	
 			<md-dialog-actions layout="row">
 				<span flex></span>
-				<md-button ng-click="answerTech(editTechnical(dataValue))">
+				<md-button ng-disabled="!form.$dirty || (form.$dirty && form.$invalid)" ng-click="answerTech(editTechnical(dataValue))">
 				Save
 				</md-button>
 				<md-button ng-click="cancelTech()">

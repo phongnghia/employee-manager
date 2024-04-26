@@ -11,16 +11,17 @@
 			<div class="col-sm-9">
 				<input ng-model="employeeForm.name" name="Name" type="text"
 					class="form-control" placeholder="Name Employee" ng-minlength="5"
-					ng-maxlength="20" required> <i class="fa fa-check text-success"
+					ng-maxlength="20"
+					ng-pattern="/^[a-zA-Z\s]+$/"
+					required> <i class="fa fa-check text-success"
 					ng-show="form.Name.$dirty && form.Name.$valid"></i>
 				<div ng-show="form.Name.$dirty && form.Name.$invalid"
 					class="text-danger">
-					<i class="fa fa-times text-danger"></i> <span
-						ng-show="form.Name.$error.required">Name Employee must not
-						be empty</span> <span ng-show="form.Name.$error.minlength">Name
-						Employee longer than six characters</span> <span
-						ng-show="form.Name.$error.maxlength">Name Employee less
-						than 20 characters</span>
+					<i class="fa fa-times text-danger"></i>
+					<span ng-show="form.Name.$error.required">Name Employee must not be empty</span>
+					<span ng-show="form.Name.$error.pattern && !form.Name.$error.required">Name Employee do not contain special characters!</span>
+					<span ng-show="form.Name.$error.minlength && !form.Name.$error.pattern">Name Employee longer than 6 characters</span>
+					<span ng-show="form.Name.$error.maxlength && !form.Name.$error.minlength">Name Employee less than 20 characters</span>
 				</div>
 			</div>
 		</div>
@@ -31,17 +32,15 @@
 			<div class="col-sm-9">
 				<input ng-model="employeeForm.nickName" name="nickName" type="text"
 					class="form-control" placeholder="Name Employee" ng-minlength="2"
-					ng-maxlength="20" required> <i
-					class="fa fa-check text-success"
-					ng-show="form.nickName.$dirty && form.nickName.$valid"></i>
+					ng-maxlength="20" ng-pattern="/^[a-zA-Z\s]+$/" required>
+				<i class="fa fa-check text-success" ng-show="form.nickName.$dirty && form.nickName.$valid"></i>
 				<div ng-show="form.nickName.$dirty && form.nickName.$invalid"
 					class="text-danger">
-					<i class="fa fa-times text-danger"></i> <span
-						ng-show="form.nickName.$error.required">Nick Name must not
-						be empty</span> <span ng-show="form.nickName.$error.minlength">Nick
-						Name longer than 2 characters</span> <span
-						ng-show="form.nickName.$error.maxlength">Nick Name less
-						than 20 characters</span>
+					<i class="fa fa-times text-danger"></i>
+					<span ng-show="form.nickName.$error.required">Nick Name must not be empty</span>
+					<span ng-show="form.nickName.$error.pattern && !form.nickName.$error.required">Nick Name do not contain special characters!</span>
+					<span ng-show="form.nickName.$error.minlength && !form.nickName.$error.pattern">Nick Name longer than 2 characters</span>
+					<span ng-show="form.nickName.$error.maxlength && !form.nickName.$error.minlength">Nick Name less than 20 characters</span>
 				</div>
 			</div>
 		</div>
@@ -50,13 +49,13 @@
 			<label for="age" class="col-sm-3 control-label required">Age</label>
 			<div class="col-sm-9">
 				<input ng-model="employeeForm.age" type="number" name="age"
-					class="form-control" placeholder="Age" ng-required=true> <i
-					class="fa fa-check text-success"
-					ng-show="form.password.$dirty && form.password.$valid"></i>
+					class="form-control" placeholder="Age"
+					min="19" max="60" required>
+					<i	class="fa fa-check text-success" ng-show="form.password.$dirty && form.password.$valid"></i>
 				<div>
-					<span ng-show="userForm.age.$error.required">required</span> <span
-						ng-show="!userForm.age.$error.required && userForm.age.$invalid">Age
-						must be numeric </span> <span class="valid" ng-show="userForm.age.$valid">OK</span>
+					<span ng-show="userForm.age.$error.required">Age must not be empty</span>
+					<span ng-show="!userForm.age.$error.required && (userForm.age < 19 || userForm.age > 60)">Age ranges from 19-60 years old!</span>
+					<span ng-show="!userForm.age.$error.required && userForm.age.$invalid">Age must be numeric </span>
 				</div>
 			</div>
 		</div>
@@ -99,17 +98,16 @@
 			<div class="col-sm-9">
 				<input ng-model="employeeForm.password" name="password"
 					type="password" value="" class="form-control"
-					placeholder="PassWord" ng-minlength="6" ng-maxlength="30" required>
+					placeholder="PassWord" ng-minlength="6" ng-maxlength="30" ng-pattern="/^[a-zA-Z0-9\s]+$/" required>
 				<i class="fa fa-check text-success"
 					ng-show="form.password.$dirty && form.password.$valid"></i>
 				<div ng-show="form.password.$dirty && form.password.$invalid"
 					class="text-danger">
-					<i class="fa fa-times text-danger"></i> <span
-						ng-show="form.password.$error.required">Password must not
-						be empty</span> <span ng-show="form.password.$error.minlength">Password
-						longer than six characters</span> <span
-						ng-show="form.password.$error.maxlength">Password less than
-						30 characters</span>
+					<i class="fa fa-times text-danger"></i>
+					<span ng-show="form.password.$error.required">Password must not be empty</span>
+					<span ng-show="!form.password.$error.required && form.password.$error.pattern">Password must contain uppercase letters, lowercase letters or numbers</span>
+					<span ng-show="form.password.$error.minlength && !form.password.$error.pattern">Password longer than six characters</span>
+					<span ng-show="form.password.$error.maxlength && !form.password.$error.minlength">Password less than 30 characters</span>
 				</div>
 			</div>
 		</div>
