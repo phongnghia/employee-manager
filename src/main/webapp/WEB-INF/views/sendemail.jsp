@@ -47,12 +47,16 @@
 		ng-cloak>
 		<section class="form">
 			<h4>Create Password</h4>
-			<form action="" method="">
+			<form action="" method="" name="form">
 				<label>Your email</label> <input type="email" name="email"
 					value="${email}" data-value="${password}" readonly required>
 				<label>New password</label>
 				<div class="form__hide">
-					<input type="password" ng-model="password" name="password" required>
+					<input type="password" ng-model="password" name="newpassword" ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$/" required>
+					<div ng-show="form.newpassword.$dirty && form.newpassword.$invalid" class="error__form">
+                    	<span ng-show="form.newpassword.$error.required">New password must not be empty</span>
+                    	<span ng-show="form.newpassword.$error.pattern">Password is not in correct format!</span>
+                    </div>
 				</div>
 				<label>Renew password</label>
 				<div class="form__hide">

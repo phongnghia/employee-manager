@@ -98,7 +98,7 @@
 			<div class="col-sm-9">
 				<input ng-model="employeeForm.password" name="password"
 					type="password" value="" class="form-control"
-					placeholder="PassWord" ng-minlength="6" ng-maxlength="30" ng-pattern="/^[a-zA-Z0-9\s]+$/" required>
+					placeholder="PassWord" ng-minlength="6" ng-maxlength="30" ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$/" required>
 				<i class="fa fa-check text-success"
 					ng-show="form.password.$dirty && form.password.$valid"></i>
 				<div ng-show="form.password.$dirty && form.password.$invalid"

@@ -124,6 +124,13 @@ body {
 	color: red;
 }
 
+.error__form {
+	padding: 0 0 10px 0;
+	text-align: left;
+	font-size: 12px;
+	color: red;
+}
+
 @media ( min-width : 960px) {
 	.form {
 		min-width: 25%;

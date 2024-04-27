@@ -120,6 +120,12 @@ angular.module('loginApp', ['ngSanitize', 'ngMaterial']).controller('loginCtrl',
             $scope.alert = "Old password must not be empty";
             return 1;
         }
+        if (document.querySelector('input[name="newpassword"]').value == ""){
+            $scope.error = false;
+            $scope.success = {}
+            $scope.alert = "New password must not be empty";
+            return 1;
+        }
 		if (check(email) == true) {
 			if (newpassword == repassword && newpassword != null) {
 				let create = {};
