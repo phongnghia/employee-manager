@@ -128,6 +128,11 @@
 				<input class="mx-3" type="radio" ng-model="employeeForm.sex"
 					name="sex" value="0" />Male <input ng-model="employeeForm.sex"
 					class="mx-3" type="radio" name="sex" value="1" />Female
+				<div ng-show="!employeeForm.sex"
+					 class="text-danger">
+					<i class="fa fa-times text-danger"></i>
+					<span>Sex must not be empty</span>
+				</div>
 			</div>
 		</div>
 
@@ -138,6 +143,11 @@
 				<select class="form-control" ng-model="employeeForm.idRole">
 					<option ng-repeat="xx in positiones" ng-value="xx.id">{{xx.name}}</option>
 				</select>
+				<div ng-show="!employeeForm.idRole"
+					 class="text-danger">
+					<i class="fa fa-times text-danger"></i>
+					<span>Position must not be empty</span>
+				</div>
 			</div>
 		</div>
 		<!-- status -->
@@ -147,6 +157,11 @@
 				<input class="mx-3" type="radio" ng-model="employeeForm.status"
 					name="status" ng-value="1" />Yes <input class="mx-3" type="radio"
 					ng-model="employeeForm.status" name="status" ng-value="0" />No
+				<div ng-show="!employeeForm.status"
+					 class="text-danger">
+					<i class="fa fa-times text-danger"></i>
+					<span>Status must not be empty</span>
+				</div>
 			</div>
 		</div>
 
@@ -154,7 +169,7 @@
 			class="form-group row m-0 py-4 d-flex align-items-center justify-content-center">
 			<div class="col-sm-4">
 				<button type="submit" class="btn btn-primary w-75"
-					ng-disabled="!form.$dirty || (form.$dirty && form.$invalid)">
+					ng-disabled="!form.$dirty || (form.$dirty && form.$invalid) || (!employeeForm.idRole || !employeeForm.status || !employeeForm.sex)">
 					Save <i class="fa fa-sign-in"></i>
 				</button>
 			</div>
