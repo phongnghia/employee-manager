@@ -76,14 +76,19 @@
 			</tr>
 			<tr>
 				<td><label>Team</label></td>
-				<td class="employee-detail__tab--detail--display"><select
-					ng-model="eachUser.idTeam" ng-disabled="{{disableSelectRole}}">
-						<option ng-repeat="team in selectTeam" ng-value="{{team.id}}"
-							ng-bind="team.name"></option>
-				</select></td>
+				<td class="employee-detail__tab--detail--display">
+					<select ng-model="eachUser.idTeam" ng-disabled="{{disableSelectRole}}">
+						<option ng-repeat="team in selectTeam" ng-value="{{team.id}}" ng-bind="team.name"></option>
+					</select>
+					<div ng-show="!eachUser.idTeam"
+						 class="text-danger">
+						<i class="fa fa-times text-danger"></i>
+						<span>Team must not be empty</span>
+					</div>
+				</td>
 			</tr>
 		</tbody>
 	</table>
-	<md-button ng-disabled="form_detail.nickName.$invalid || form_detail.nameEmployee.$invalid || form_detail.age.$invalid" ng-click="editUser(eachUser)"
+	<md-button ng-disabled="form_detail.nickName.$invalid || form_detail.nameEmployee.$invalid || form_detail.age.$invalid || !eachUser.idTeam" ng-click="editUser(eachUser)"
 			   class="bg-success text-white">Edit</md-button>
 </form>
