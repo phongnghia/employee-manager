@@ -10,7 +10,7 @@
 				Employee</label>
 			<div class="col-sm-9">
 				<input ng-model="employeeForm.name" name="Name" type="text"
-					class="form-control" placeholder="Name Employee" ng-minlength="5"
+					class="form-control" placeholder="Name Employee" ng-minlength="6"
 					ng-maxlength="20"
 					ng-pattern="/^[a-zA-Z\s]+$/"
 					required> <i class="fa fa-check text-success"
@@ -31,7 +31,7 @@
 				name</label>
 			<div class="col-sm-9">
 				<input ng-model="employeeForm.nickName" name="nickName" type="text"
-					class="form-control" placeholder="Name Employee" ng-minlength="2"
+					class="form-control" placeholder="Name Employee" ng-minlength="6"
 					ng-maxlength="20" ng-pattern="/^[a-zA-Z\s]+$/" required>
 				<i class="fa fa-check text-success" ng-show="form.nickName.$dirty && form.nickName.$valid"></i>
 				<div ng-show="form.nickName.$dirty && form.nickName.$invalid"
@@ -39,7 +39,7 @@
 					<i class="fa fa-times text-danger"></i>
 					<span ng-show="form.nickName.$error.required">Nick Name must not be empty</span>
 					<span ng-show="form.nickName.$error.pattern && !form.nickName.$error.required">Nick Name do not contain special characters!</span>
-					<span ng-show="form.nickName.$error.minlength && !form.nickName.$error.pattern">Nick Name longer than 2 characters</span>
+					<span ng-show="form.nickName.$error.minlength && !form.nickName.$error.pattern">Nick Name longer than 6 characters</span>
 					<span ng-show="form.nickName.$error.maxlength && !form.nickName.$error.minlength">Nick Name less than 20 characters</span>
 				</div>
 			</div>
@@ -49,13 +49,14 @@
 			<label for="age" class="col-sm-3 control-label required">Age</label>
 			<div class="col-sm-9">
 				<input ng-model="employeeForm.age" type="number" name="age"
-					class="form-control" placeholder="Age"
-					min="19" max="60" required>
-					<i	class="fa fa-check text-success" ng-show="form.password.$dirty && form.password.$valid"></i>
-				<div>
-					<span ng-show="userForm.age.$error.required">Age must not be empty</span>
-					<span ng-show="!userForm.age.$error.required && (userForm.age < 19 || userForm.age > 60)">Age ranges from 19-60 years old!</span>
-					<span ng-show="!userForm.age.$error.required && userForm.age.$invalid">Age must be numeric </span>
+					class="form-control" placeholder="Age" ng-min="19" ng-max="60" required>
+				<i class="fa fa-check text-success"
+				   ng-show="form.age.$dirty && form.age.$valid"></i>
+				<div ng-show="form.age.$dirty && form.age.$invalid"
+					 class="text-danger">
+					<i class="fa fa-times text-danger"></i>
+					<span ng-show="form.age.$error.required">Age must not be empty</span>
+					<span ng-show="form.age.$error.min || form.age.$error.max">Age ranges from 19-60 years old!</span>
 				</div>
 			</div>
 		</div>
@@ -72,7 +73,15 @@
 				<md-datepicker ng-model="employeeForm.dayStart"
 					md-placeholder="Enter date"
 					input-aria-describedby="datepicker-description"
-					input-aria-labelledby="datepicker-header "></md-datepicker>
+					input-aria-labelledby="datepicker-header" name="dayStart" required ></md-datepicker>
+				<div ng-show="form.dayStart.$dirty && form.dayStart.$valid">
+					<i class="fa fa-check text-success"></i>
+				</div>
+				<div ng-show="(form.dayStart.$dirty && form.dayStart.$invalid) || form.dayStart.$error.required"
+					 class="text-danger">
+					<i class="fa fa-times text-danger"></i>
+					<span ng-show="form.dayStart.$error.required">Day Start must not be empty</span>
+				</div>
 			</div>
 		</div>
 		<!-- Email -->
