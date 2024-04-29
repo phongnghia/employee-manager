@@ -2,15 +2,16 @@
 	<div class="row pb-4">
 		<form name="form" class="col-sm-7">
 			<input type="text" placeholder="Add new skill technical"
-				ng-model="TechnicalForm.skill" ng-maxlength="20" name="new_skill_technical">
-			<div ng-show="form.new_skill_technical.$dirty && form.new_skill_technical.$invalid"
-				 class="text-danger">
+				ng-model="TechnicalForm.skill" ng-minlength="2" ng-maxlength="20" name="new_skill_technical" required>
+			<div ng-show="(form.new_skill_technical.$dirty && form.new_skill_technical.$invalid) || form.new_skill_technical.$error.required" class="text-danger px-2">
+				<span ng-show="form.new_skill_technical.$error.required">Add new skill technical must not be blank</span>
 				<span ng-show="form.new_skill_technical.$error.maxlength">Add new skill technical less than 20 characters</span>
+				<span ng-show="form.new_skill_technical.$error.minlength && !form.new_skill_technical.$error.required">Add new skill technical longer than 2 characters</span>
 			</div>
 			<input type="text"
-				placeholder="Level" ng-model="TechnicalForm.level" ng-maxlength="20" name="new_level_technical" >
-			<div ng-show="form.new_level_technical.$dirty && form.new_level_technical.$invalid"
-				 class="text-danger">
+				placeholder="Level" ng-model="TechnicalForm.level" ng-maxlength="20" name="new_level_technical" required>
+			<div ng-show="(form.new_level_technical.$dirty && form.new_level_technical.$invalid) || form.new_level_technical.$error.required" class="text-danger px-2">
+				<span ng-show="form.new_level_technical.$error.required">Level must not be blank</span>
 				<span ng-show="form.new_level_technical.$error.maxlength">Level less than 20 characters</span>
 			</div>
 		</form>
@@ -88,13 +89,13 @@
 				<div class="md-dialog-content">
 					<input class="input__default__details" type="text" ng-minlength="2" ng-maxlength="20" required ng-model="dataValue.skill" name="edit_skill_technical" />
 					<div ng-show="form.edit_skill_technical.$dirty && form.edit_skill_technical.$invalid"
-						 class="text-danger">
+						 class="text-danger px-2">
 						<span ng-show="form.edit_skill_technical.$error.minlength">Technical longer than 2 characters</span>
 						<span ng-show="form.edit_skill_technical.$error.maxlength">Technical less than 20 characters</span>
 					</div>
 					<input class="input__default__details" type="text" ng-maxlength="20" required ng-model="dataValue.level" name="edit_level_technical" />
 					<div ng-show="form.edit_level_technical.$dirty && form.edit_level_technical.$invalid"
-						 class="text-danger">
+						 class="text-danger px-2">
 						<span ng-show="form.edit_level_technical.$error.required">Level must not be empty</span>
 						<span ng-show="form.edit_level_technical.$error.maxlength">Level less than 20 characters</span>
 					</div>
